@@ -84,13 +84,14 @@
 		cell.style.textAlign = "center";
 	}
 
-	function addRowTitle(row, title) {
+	function addColTitle(row, title) {
 		var heading = document.createElement("th");
 		var name = document.createTextNode(title);
 		heading.appendChild(name);
 		styleCell(heading);
 		row.appendChild(heading);
 	}
+	
 	function initTable() {
 		var table = document.createElement("table");
 		table.style.borderCollapse = "collapse";
@@ -99,12 +100,12 @@
 		var tblBody = document.createElement("tbody");
 		tblBody.appendChild(generateTopRow());
 		var row = document.createElement("tr");
-		addRowTitle(row, "Person");
-		var row2 = document.createElement("tr");
-		addRowTitle(row2, "Current Location");
-		var row3 = document.createElement("tr");
-		addRowTitle(row3, "Upcoming Event");
+		addColTitle(row, "Person");
+		addColTitle(row, "Current Location");
+		addColTitle(row, "Upcoming Event");
+		tblBody.appendChild(row);
 		for(var person in PEOPLE) {
+			var personRow = document.createElement("tr");
 			var heading = document.createElement("th");
 			styleCell(heading);
 			var button = document.createElement("input");
@@ -117,56 +118,54 @@
 				upcomingEvent(this.value);
 			});
 			heading.appendChild(button);
-			row.appendChild(heading);
+			personRow.appendChild(heading);
 			var dataBox = document.createElement("td");
 			styleCell(dataBox);
 			var dataBox2 = document.createElement("td");
 			styleCell(dataBox2);
-			row2.appendChild(dataBox);
-			row3.appendChild(dataBox2);
+			personRow.appendChild(dataBox);
+			personRow.appendChild(dataBox2);
+			tblBody.appendChild(personRow);
 		}
-		tblBody.appendChild(row);
-		tblBody.appendChild(row2);
-		tblBody.appendChild(row3);
 		table.appendChild(tblBody);
 		document.body.appendChild(table);
 	}
 
-      function appendFeed(message) {
-        var pre = document.getElementById("feed");
-        var textContent = document.createTextNode(message + '\n');
-        pre.appendChild(textContent);
-      }
+	function appendFeed(message) {
+		var pre = document.getElementById("feed");
+		var textContent = document.createTextNode(message + '\n');
+		pre.appendChild(textContent);
+	}
 
       /**
        * Print the summary and start datetime/date of the next ten events in
        * the authorized user's calendar. If no events are found an
        * appropriate message is printed.
        */
-      function listUpcomingEvents() {
-        gapi.client.calendar.events.list({
-          'calendarId': CALENDARID,
-          'timeMin': (new Date()).toISOString(),
-          'showDeleted': false,
-          'singleEvents': true,
-          'maxResults': 10,
-          'orderBy': 'startTime'
-        }).then(function(response) {
-          var events = response.result.items;
-          appendFeed('Upcoming events:');
-          if (events.length > 0) {
-            for (var i = 0; i < events.length; i++) {
-              var event = events[i];
-              var when = event.start.dateTime;
-              if (!when) {
-                when = event.start.date;
-              }
-              appendFeed(event.summary + ' (' + when + ')')
-            }
-          } else {
-            appendFeed('No upcoming events found.');
-          }
-        });
+	function listUpcomingEvents() {
+		gapi.client.calendar.events.list({
+			'calendarId': CALENDARID,
+			'timeMin': (new Date()).toISOString(),
+			'showDeleted': false,
+			'singleEvents': true,
+			'maxResults': 10,
+			'orderBy': 'startTime'
+		}).then(function(response) {
+      		var events = response.result.items;
+      		appendFeed('Upcoming events:');
+      		if (events.length > 0) {
+        		for (var i = 0; i < events.length; i++) {
+          			var event = events[i];
+      				var when = event.start.dateTime;
+      				if (!when) {
+                		when = event.start.date;
+              		}
+             		appendFeed(event.summary + ' (' + when + ')')
+            	}
+          	} else {
+            	appendFeed('No upcoming events found.');
+          	}
+        	});
       }
 	
 	function getName(event) {
@@ -216,9 +215,9 @@
 		}
 	}
 	
-	function placeLocation(name, location, row) {
+	function placeLocation(name, location, col) {
 		var table = document.getElementById("data_table");
-		var cell = table.children[0].children[row + 1].children[PEOPLE[name] + 1];
+		var cell = table.children[0].children[PEOPLE[name] + 2].children[col];
 		var text = document.createTextNode(location);
 		clearCell(cell);
 		cell.appendChild(text);
@@ -242,8 +241,7 @@
 			var events = response.result.items;
 			for(var i=0; i < events.length; i++) {
 				var event = events[i];
-					if(getName(event) === name) {
-						if(!isNow(event)) {break;}
+					if(getName(event) === name && isNow(event)) {
 						placeLocation(name, formatLocation(name, event), 1);
 						return;
 					}
