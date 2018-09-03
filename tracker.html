@@ -193,12 +193,21 @@
 		return false;
 	}
 
+	function formatTime(time) {
+		var hours = parseInt(time.substring(0,2));
+		if(hours > 12) {
+			return  '' + (hours - 12) + time.substring(2) + "pm"
+		} else {
+			return '' + hours + time.substring(2) + "am";
+		}
+	}
+
 	function formatLocation(name, event) {
-		return name + " is in " + getClass(event) + " until " + event.end.dateTime.substring(20);
+		return name + " is in " + getClass(event) + " until " + formatTime(event.end.dateTime.substring(11,16));
 	}
 	
 	function formatEvent(name, event) {
-		return getClass(event) + " at " + event.start.dateTime.substring(11,16) + " on " +  event.start.dateTime.substring(5,10);
+		return getClass(event) + " at " + formatTime(event.start.dateTime.substring(11,16)) + " on " + event.start.dateTime.substring(5,10);
 	}
 	
 	function clearCell(cell) {
@@ -245,8 +254,6 @@
 	
 	function upcomingEvent(name) {	
 		var startDate = new Date();
-		startDate.setHours(0);
-		startDate.setMinutes(0);
 		var endDate = new Date();
 		endDate.setDate(endDate.getDate()+7);
 		gapi.client.calendar.events.list({
@@ -260,7 +267,7 @@
 			var events = response.result.items;
 			for(var i=0; i < events.length; i++) {
 				var event = events[i];
-					if(getName(event) === name) {
+					if(getName(event) === name && !isNow(event)) {
 						placeLocation(name, formatEvent(name, event), 2);
 						return;
 					}
