@@ -66,7 +66,8 @@
 		button.addEventListener("click", function(){
 			for(var person in PEOPLE){
 				currentLocation(person);
-				upcomingEvent(person)
+				upcomingEvent(person);
+                finishTime(person);
 			}
 			//listUpcomingEvents();
 		});
@@ -107,6 +108,7 @@
 		addColTitle(row, "Person");
 		addColTitle(row, "Current Location");
 		addColTitle(row, "Upcoming Event");
+        addColTitle(row, "Done For the Day");
 		tblBody.appendChild(row);
 		for(var person in PEOPLE) {
 			var personRow = document.createElement("tr");
@@ -120,6 +122,7 @@
 			button.addEventListener("click", function(){
 				currentLocation(this.value);
 				upcomingEvent(this.value);
+                finishTime(this.value);
 			});
 			heading.appendChild(button);
 			personRow.appendChild(heading);
@@ -127,8 +130,10 @@
 			styleCell(dataBox);
 			var dataBox2 = document.createElement("td");
 			styleCell(dataBox2);
+            var dataBox3 = document.createElement("td");
 			personRow.appendChild(dataBox);
 			personRow.appendChild(dataBox2);
+            personRow.appendChild(dataBox3);
 			tblBody.appendChild(personRow);
 		}
 		table.appendChild(tblBody);
@@ -214,6 +219,10 @@
 	function formatEvent(name, event) {
 		return getClass(event) + " at " + formatTime(event.start.dateTime.substring(11,16)) + " on " + event.start.dateTime.substring(5,10);
 	}
+    
+    function formatEndOfDay(name, event) {
+        return name + "is done with classes today at" + formatTime(event.end.dateTime.substring(11,16));
+    }
 	
 	function clearCell(cell) {
 		while(cell.firstChild) {
@@ -253,6 +262,31 @@
 					}
 			}
 			placeLocation(name, (name + " is not in class right now."), 1);
+		});
+	}
+    
+    function finishTime(name) {
+		var startDate = new Date();
+		var endDate = new Date();
+		endDate.setHours(23);
+		endDate.setMinutes(59);
+		gapi.client.calendar.events.list({
+			'calendarId': CALENDARID,
+			'timeMin': startDate.toISOString(),
+			'timeMax': endDate.toISOString(),
+			'showDeleted': false,
+			'singleEvents': true,
+			'orderBy': 'startTime'
+		}).then(function(response) {
+			var events = response.result.items;
+            for(var i=events.length-1; i >= 0; i--) {
+				var event = events[i];
+					if(getName(event) === name) {
+						placeLocation(name, formatEndOfDay(name, event), 3);
+						return;
+					}
+			} 
+            placeLocation(name, (name + " is done for the day!"), 3);
 		});
 	}
 	
