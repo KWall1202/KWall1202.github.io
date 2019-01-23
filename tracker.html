@@ -200,7 +200,9 @@
 		var hours = parseInt(time.substring(0,2));
 		if(hours > 12) {
 			return  '' + (hours - 12) + time.substring(2) + "pm"
-		} else {
+		} else if(hours == 12) {
+            return time + "pm"
+        } else {
 			return '' + hours + time.substring(2) + "am";
 		}
 	}
