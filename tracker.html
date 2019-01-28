@@ -25,9 +25,9 @@
 		"Amram":0,
 		"Anna":1,
 		"Bri":2,
-        "Brittney":3,
-        "Claire":4,
-        "Evan":5,
+        	"Brittney":3,
+        	"Claire":4,
+        	"Evan":5,
 		"Jack":6,
 		"Kevin":7,
 		"Michael":8,
@@ -67,9 +67,8 @@
 			for(var person in PEOPLE){
 				currentLocation(person);
 				upcomingEvent(person);
-                finishTime(person);
+                		finishTime(person);
 			}
-			//listUpcomingEvents();
 		});
 		return button;
 	}
@@ -108,7 +107,7 @@
 		addColTitle(row, "Person");
 		addColTitle(row, "Current Location");
 		addColTitle(row, "Upcoming Event");
-        addColTitle(row, "Done For the Day");
+        	addColTitle(row, "Done For the Day");
 		tblBody.appendChild(row);
 		for(var person in PEOPLE) {
 			var personRow = document.createElement("tr");
@@ -122,7 +121,7 @@
 			button.addEventListener("click", function(){
 				currentLocation(this.value);
 				upcomingEvent(this.value);
-                finishTime(this.value);
+                		finishTime(this.value);
 			});
 			heading.appendChild(button);
 			personRow.appendChild(heading);
@@ -130,10 +129,11 @@
 			styleCell(dataBox);
 			var dataBox2 = document.createElement("td");
 			styleCell(dataBox2);
-            var dataBox3 = document.createElement("td");
+            		var dataBox3 = document.createElement("td");
+			styleCell(dataBox3);
 			personRow.appendChild(dataBox);
 			personRow.appendChild(dataBox2);
-            personRow.appendChild(dataBox3);
+            		personRow.appendChild(dataBox3);
 			tblBody.appendChild(personRow);
 		}
 		table.appendChild(tblBody);
