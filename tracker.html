@@ -68,9 +68,8 @@
 			for(var person in PEOPLE){
 				currentLocation(person);
 				upcomingEvent(person);
-                finishTime(person);
+                		finishTime(person);
 			}
-			//listUpcomingEvents();
 		});
 		return button;
 	}
@@ -109,7 +108,7 @@
 		addColTitle(row, "Person");
 		addColTitle(row, "Current Location");
 		addColTitle(row, "Upcoming Event");
-        addColTitle(row, "Done For the Day");
+        	addColTitle(row, "Done For the Day");
 		tblBody.appendChild(row);
 		for(var person in PEOPLE) {
 			var personRow = document.createElement("tr");
@@ -123,7 +122,7 @@
 			button.addEventListener("click", function(){
 				currentLocation(this.value);
 				upcomingEvent(this.value);
-                finishTime(this.value);
+                		finishTime(this.value);
 			});
 			heading.appendChild(button);
 			personRow.appendChild(heading);
@@ -131,10 +130,11 @@
 			styleCell(dataBox);
 			var dataBox2 = document.createElement("td");
 			styleCell(dataBox2);
-            var dataBox3 = document.createElement("td");
+            		var dataBox3 = document.createElement("td");
+			styleCell(dataBox3);
 			personRow.appendChild(dataBox);
 			personRow.appendChild(dataBox2);
-            personRow.appendChild(dataBox3);
+            		personRow.appendChild(dataBox3);
 			tblBody.appendChild(personRow);
 		}
 		table.appendChild(tblBody);
@@ -222,7 +222,7 @@
 	}
     
     function formatEndOfDay(name, event) {
-        return name + "is done with classes today at" + formatTime(event.end.dateTime.substring(11,16));
+        return name + " is done with classes today at " + formatTime(event.end.dateTime.substring(11,16));
     }
 	
 	function clearCell(cell) {
