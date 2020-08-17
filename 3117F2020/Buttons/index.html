@@ -1,11 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>3117 Puzzle: Patterns</title>
+		<title>3117 B2: Patterns</title>
 		<link rel="stylesheet" href="/css/style.css">
 	</head>
 	<body>
-		<h1>This is a test</h1>
-		<p>First button</p>
+		<p id="outputResponse"></p>
+		<h1>Each color is used a maximum of one time.</h1>
+		<h2>Something will happen when you get the pattern correct.</h2>
+		<div id="colorButtons">
+			<input type="button" value="Red" id="redButton">
+			<input type="button" value="Orange" id="orangeButton">
+			<input type="button" value="Purple" id="purpleButton">
+			<input type="button" value="Green" id="greenButton">
+			<input type="button" value="Blue" id="blueButton">
+		</div>
+		<p>Current input:</p>
+		<p id="patternChoice"></p>
+		<input type="button" value="Reset" id="resetButton">
+		<input type="button" value="Submit" id="submitButton">
 	</body>
 </html>
