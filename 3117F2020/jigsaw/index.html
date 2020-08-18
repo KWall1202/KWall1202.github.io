@@ -3,17 +3,18 @@
 	<head>
 		<title>3117 A2: Jigsaw</title>
 		<link rel="stylesheet" href="/css/style.css">
+		
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@2.3.2/dist/email.min.js"></script>
+		<script type="text/javascript">
+		   (function(){
+			  emailjs.init("user_BsqONl9v5mbMoI5I8AcYA");
+		   })();
+		   emailjs.send('default_service', 'jigsawSolved', {});
+		</script>
 	</head>
+	
 	<body>
 		<h1>If you found this page you must have found and solved the jigsaw puzzle.</h1>
 		<p>You'll receive more information soon.</p>
 	</body>
-	
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@2.3.2/dist/email.min.js"></script>
-	<script type="text/javascript">
-	   (function(){
-		  emailjs.init("user_BsqONl9v5mbMoI5I8AcYA");
-	   })();
-	   emailjs.send('default_service', 'jigsawSolved', {});
-	</script>
 </html>
