@@ -3,21 +3,24 @@
 	<head>
 		<title>3117 B2: Patterns</title>
 		<link rel="stylesheet" href="/css/style.css">
+		
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@2.3.2/dist/email.min.js"></script>
+		<script type="text/javascript">
+		   (function(){
+			  emailjs.init("user_BsqONl9v5mbMoI5I8AcYA");
+		   })();
+		</script>
 	</head>
 	<body>
 		<p id="outputResponse"></p>
 		<h1>Each color is used a maximum of one time.</h1>
 		<h2>Something will happen when you get the pattern correct.</h2>
-		<div id="colorButtons">
-			<input type="button" value="Red" id="redButton">
-			<input type="button" value="Orange" id="orangeButton">
-			<input type="button" value="Purple" id="purpleButton">
-			<input type="button" value="Green" id="greenButton">
-			<input type="button" value="Blue" id="blueButton">
-		</div>
+		<div id="colorButtons"></div>
 		<p>Current input:</p>
 		<p id="patternChoice"></p>
 		<input type="button" value="Reset" id="resetButton">
 		<input type="button" value="Submit" id="submitButton">
+		
+		<script type="text/javascript" src="./js/patterns.js"></script>
 	</body>
 </html>

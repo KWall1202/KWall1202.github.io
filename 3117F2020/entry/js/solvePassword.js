@@ -19,11 +19,10 @@
 	submitButton.onclick = (async function(){
 		const pwHash = pw.value.hashCode();
 		if(pwHash === 3105819) {
-			alert("yep");
-			outputResponse.value = "Contact Kevin for your final puzzle.";
+			outputResponse.innerHTML = "Contact Kevin for your final puzzle.";
+			alert("Contact Kevin for your final puzzle.")
 		} else {
-			alert("nope");
-			outputResponse.value = "Not quite.";
+			outputResponse.innerHTML = "Not quite.";
 		}
-	})();
+	});
 })();
