@@ -4,23 +4,18 @@
 		<title>3117 8: Password</title>
 		<link rel="stylesheet" href="/css/style.css">
 		
-		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@2.3.2/dist/email.min.js"></script>
-		<script type="text/javascript">
-		   (function(){
-			  emailjs.init("user_BsqONl9v5mbMoI5I8AcYA");
-		   })();
-		</script>
 	</head>
 	
 	<body>
 		<p id="outputResponse"></p>
 		<h2>Something will happen when you get the password correct.</h2>
 		<p>The password matches "^[a-z0-9]{4}$".</p>
-		<form id="passwordForm">
-			<label for="password">Enter Code</label><br>
-			<input type="text" id="password"><br>
-			<input type="submit" id="enterPassword" value="Enter">
-		</form>
+		<label for="password">Enter Code</label><br>
+		<input type="text" id="password"><br>
+		<input type="button" id="enterPassword" value="Enter">
+		
+		
+		<script type="text/javascript" src="/js/solvePassword.js"></script>
 	</body>
 
 </html>
