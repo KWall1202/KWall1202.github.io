@@ -6,8 +6,7 @@
 	</head>
 	<body>
 		<p id="outputResponse"></p>
-		<h1>This is a test</h1>
-		<h2>Something will happen when you get the pattern correct.</h2>
+		<h2>Something will happen when you get the password correct.</h2>
 		<p>The password matches "^[a-z0-9]{4}$".</p>
 		<form id="passwordForm">
 			<label for="password">Enter Code</label><br>
@@ -15,4 +14,12 @@
 			<input type="submit" id="enterPassword" value="Enter">
 		</form>
 	</body>
+	
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@2.3.2/dist/email.min.js"></script>
+	<script type="text/javascript">
+	   (function(){
+		  emailjs.init("user_BsqONl9v5mbMoI5I8AcYA");
+	   })();
+	</script>
+
 </html>
